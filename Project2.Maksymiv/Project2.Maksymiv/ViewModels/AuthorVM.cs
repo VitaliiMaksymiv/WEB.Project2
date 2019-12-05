@@ -1,8 +1,9 @@
-﻿namespace Librairie.Models
+﻿namespace Librairie.ViewModels
 {
     using System.Collections.Generic;
+    using Newtonsoft.Json;
 
-    public class Author
+    public class AuthorVM
     {
         public int Id { get; set; }
 
@@ -10,6 +11,7 @@
 
         public string LastName { get; set; }
 
-        public virtual List<AuthorBook> AuthorBooks { get; set; }
+        [JsonIgnore]
+        public List<BookVM> Books { get; set; }
     }
 }
