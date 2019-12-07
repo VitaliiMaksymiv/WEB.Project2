@@ -1,0 +1,8 @@
+﻿@model CartVM
+
+<a asp-controller="Cart" asp-action="Index" class="nav-link h6 mb-0" data-toggle="tooltip" data-placement="bottom" title="@Model.ComputeTotalValue().ToString("F")$">
+    Cart<i class="fas fa-shopping-cart"></i>
+    <span class="align-text-bottom badge badge-pill badge-light">
+        @Model.ShopItems.Sum(x => x.Quantity)
+    </span>
+</a>

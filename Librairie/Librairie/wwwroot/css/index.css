@@ -1,0 +1,22 @@
+﻿.profile-pic {
+    height: 40px;
+    width: 40px;
+}
+
+.mylogo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3em;
+}
+
+#product-img {
+    max-height: 300px;
+}
+
+#pageNum {
+    width: 100px;
+}
+
+.validation-summary-errors ul {
+    list-style: none;
+    margin-left: -40px
+}

@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BookVM>
+@{
+    ViewData["Title"] = "Books";
+}
+
+<div class="bg-primary text-white text-center"><h4>Books</h4></div>
+
+<div>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" asp-action="Books">Books</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-action="Users">Users</a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid my-2">
+    <a class="btn btn-sm btn-outline-primary btn-block z-depth-0" asp-action="AddBook"><i class="fas fa-plus"></i></a>
+</div>
+
+<table class="table table-sm table-bordered table-hover">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Title</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Price</th>
+            <th scope="col">Author</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count() == 0)
+        {
+            <tr><td colspan="3" class="text-center">No Books</td></tr>
+        }
+        else
+        {
+            foreach (var book in Model)
+            {
+                <tr>
+                    <td>@book.Id</td>
+                    <td>@book.Title</td>
+                    <td>@book.Description</td>
+                    <td>@book.Category</td>
+                    <td>@book.Price.ToString("f")</td>
+                    <td>
+                        @foreach (var author in book.Authors)
+                        {
+                            @(author.FirstName + " " + author.LastName);
+                            <br />
+                        }
+                    </td>
+                    <td class="text-center">
+                        <a class="btn btn-sm btn-warning z-depth-0" asp-action="EditBook" asp-all-route-data="@(new Dictionary<string, string> { {"bookId", book.Id.ToString() } })">Edit</a>
+                        <a class="btn btn-sm btn-danger z-depth-0" asp-action="DeleteBook" asp-all-route-data="@(new Dictionary<string, string> { {"bookId", book.Id.ToString() } })">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

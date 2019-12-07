@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Shop";
+}
+
+@model ShopVM
+
+<nav class="navbar navbar-expand navbar-light bg-light rounded mb-5">
+    <form class="navbar-collapse" method="get">
+        <div class="navbar-collapse">
+            <input id="pageNumber" type="hidden" asp-for="@Model.PageNumber" value="@Model.PageNumber" />
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item form-inline">
+                    <label for="orderBy" class="mr-2">Order by: </label>
+                    <select id="orderBy" class="custom-select" asp-for="@Model.OrderBy" asp-items="@Html.GetEnumSelectList<OrderByType>()"></select>
+                </li>
+            </ul>
+        </div>
+        <div class="form-inline my-2 my-lg-0">
+            <input class="form-control" asp-for="@Model.ToFind" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-sm rounded" onclick="Find()" type="submit"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+</nav>
+
+@if (Model.ShopItems != null && Model.ShopItems.Count > 0)
+{
+    @await Html.PartialAsync("ShopItemsView", Model.ShopItems)
+
+    <nav>
+        <ul class="pagination justify-content-center mb-0">
+            @if (Model.PageNumber != 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" onclick="Prev()">
+                        Previous
+                    </a>
+                </li>
+            }
+            <li class="page-item">
+                <a class="page-link" href="#">@Model.PageNumber</a>
+            </li>
+            @if (Model.PageNumber != Model.PageCount)
+            {
+                <li class="page-item">
+                    <a class="page-link" onclick="Next()">
+                        Next
+                    </a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
+else
+{
+    <h1>Not Found</h1>
+}

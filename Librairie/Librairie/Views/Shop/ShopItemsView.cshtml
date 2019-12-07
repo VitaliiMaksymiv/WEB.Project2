@@ -1,0 +1,39 @@
+﻿@model List<BookVM>
+
+<div class="row container mx-auto">
+    @foreach (var item in Model)
+    {
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#"><img id="product-img" class="card-img-top" src="http://placehold.jp/700x400.png" alt=""></a>
+                <div class="card-body pb-1">
+                    <h5 class="card-title">
+                        <a href="#">
+                            @item.Title
+                        </a>
+                    </h5>
+                    <div class="card-text">
+                        by 
+                        @foreach (var authorVM in item.Authors)
+                        {
+                            @(authorVM.FirstName + " " + authorVM.LastName)
+                            <br />
+                        }
+                    </div>
+                    <p class="card-text">
+                        @item.Description
+                    </p>
+                </div>
+                <div class="card-footer d-flex align-items-center ">
+                    <span class="mr-auto">
+                        $@item.Price.ToString("f")
+                    </span>
+                    <a asp-controller="Cart" asp-action="AddToCart" asp-all-route-data="@(new Dictionary<string, string> { { "bookId", @item.Id.ToString() } })" class="btn btn-sm btn-success">
+                        Buy
+                        <i class="fas fa-cart-arrow-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

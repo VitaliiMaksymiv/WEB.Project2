@@ -1,0 +1,48 @@
+﻿@model CartVM
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h2>Your cart</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Item</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Subtotal</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var line in Model.ShopItems)
+        {
+            <tr>
+                <td class="text-center">@line.Quantity</td>
+                <td class="text-left">@line.Book.Title</td>
+                <td class="text-right">@line.Book.Price.ToString("f")$</td>
+                <td class="text-right">
+                    @((line.Quantity * line.Book.Price).ToString("f"))$
+                </td>
+                <td>
+                    <form asp-action="RemoveFromCart" method="post">
+                        <input type="hidden" name="bookId"
+                               value="@line.Book.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger z-depth-0">
+                            Remove
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3" class="text-right">Total:</td>
+            <td class="text-right">
+                @Model.ComputeTotalValue().ToString("f")$
+            </td>
+        </tr>
+    </tfoot>
+</table>

@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Librairie</title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Dancing+Script">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+
+    <link rel="stylesheet" href="~/public/mdbootstrap/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="~/css/index.css">
+
+    <link href="~/public/mdbootstrap/css/mdb.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark py-md-0">
+        <a class="navbar-brand mr-md-5 mylogo" href="/">Librairie</a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDrop">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse " id="navbarDrop">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link h4 mb-0" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link h4 mb-0" href="/Shop">Shop</a>
+                </li>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li class="nav-item">
+                        <a asp-controller="Admin" class="nav-link h4 mb-0">Admin</a>
+                    </li>
+                }
+            </ul>
+
+            <div class="navbar-nav pt-sm-1">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        @await Component.InvokeAsync("CartSummaryVC")
+                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="SignOut" class="nav-link h6 mb-0">
+                                Sign out<i class="fas fa-sign-out-alt"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item mx-1 my-1 my-md-0">
+                            <ul class="list-inline d-flex justify-items-center">
+                                @*<li class="list-inline-item">
+                                        <img class="rounded-circle profile-pic" USERIMAGE>
+                                    </li>*@
+                                <li class="list-inline-item nav-item">
+                                    <a href="#" class="nav-link h6 mb-0 disabled">
+                                        @User.Identity.Name
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="SignIn" class="nav-link h6 mb-0">
+                                Sign in<i class="fas fa-sign-in-alt"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="SignUp" class="nav-link h6 mb-0">
+                                Sign Up
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <main role="main" class="py-3 mt-5">
+            @RenderBody()
+        </main>
+    </div>
+
+    <div class="container">
+        <footer class="pt-4 pt-md-5 border-top">
+            <div class="row">
+                <div class="col-12 col-md">
+                    <p class="d-block mb-3 text-muted">© 2019, Librairie</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="~/public/mdbootstrap/js/jquery-3.4.1.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="~/public/mdbootstrap/js/popper.min.js"></script>
+
+    <script type="text/javascript" src="~/public/mdbootstrap/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/public/mdbootstrap/js/mdb.min.js"></script>
+
+    <script type="text/javascript" src="~/js/index.js"></script>
+</body>
+</html>

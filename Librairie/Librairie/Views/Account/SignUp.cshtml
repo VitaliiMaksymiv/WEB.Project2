@@ -1,0 +1,24 @@
+﻿@model SignUpVM
+
+<div class="container my-5">
+    <div class="text-center d-flex justify-content-center">
+        <form asp-action="Login" method="post" class="col-4">
+            <h1 class="h3 mb-3 font-weight-normal">Sign Up</h1>
+            <div class="form-group">
+                <input asp-for="Name" class="form-control" type="text" placeholder="Name"/>
+            </div>
+            <div class="form-group">
+                <input asp-for="Email" type="email" id="inputEmail" class="form-control" placeholder="Email address">
+            </div>
+            <div class="form-group">
+                <input asp-for="Password" type="password" id="inputPassword" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm Password"/>
+            </div>
+
+            <div class="text-danger validation" asp-validation-summary="All"></div>
+            <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
